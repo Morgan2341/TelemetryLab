@@ -1,32 +1,48 @@
 # TelemetryLab
 
-Interactive analysis of synthetic environmental sensor telemetry using Python, pandas, NumPy and Streamlit. No real aircraft or employer data is used.
+Interactive data quality dashboard for synthetic environmental sensor measurements, built with Python, NumPy, pandas and Streamlit.
 
-## Quick start
-Requires Python 3.11 or later.
+## Features
+- Seeded, reproducible synthetic measurements
+- Missing-data percentage and latency quantiles
+- Interactive sample count and missing-measurement controls
+- Temperature and latency time-series charts
+- CSV download
+- Data-generation tests and dashboard interaction tests
+
+## Run locally
+Python 3.11+:
 
 ```bash
 python -m venv .venv
-# Linux/macOS:
 source .venv/bin/activate
-# Windows PowerShell alternative: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Choose a sample count, random seed and missing measurement probability. Explore temperature and latency charts, review summary statistics and export CSV.
+On Windows PowerShell, activate using .venv/Scripts/Activate.ps1 instead.
 
-## Architecture
-- telemetry.py: seeded synthetic data generator and descriptive statistics
-- app.py: interactive dashboard and export
-- test_telemetry.py: reproducibility, missing-data edge cases and validation
-- .github/workflows/ci.yml: automated pytest workflow
+## Run using Docker
+```bash
+docker build -t telemetrylab .
+docker run --rm -p 127.0.0.1:8501:8501 telemetrylab
+```
 
-## Testing
+Open http://localhost:8501.
+
+## Tests
 ```bash
 python -m pytest -q
 ```
 
-CI is configured; test execution has not been independently verified here. The simulated measurements are illustrative and are not a validated model of any physical communication system.
+## Architecture
+- telemetry.py: synthetic generation and descriptive statistics
+- app.py: interactive dashboard and CSV export
+- test_telemetry.py: data generation and statistical edge cases
+- test_dashboard.py: dashboard startup and interaction
+- .github/workflows/ci.yml: continuous testing
+
+## Limitations
+All data is simulated, not sourced from an employer or actual aircraft. The simulator illustrates generic sensor data quality, not validated physical communications behavior. Execution and CI results have not yet been independently verified.
 
 Developed with AI assistance as a learning portfolio project.
